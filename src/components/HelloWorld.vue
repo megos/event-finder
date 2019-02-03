@@ -19,15 +19,31 @@
 
                       <v-flex xs12 md4 offset-md2>
         <v-card>
-          <v-card-title><h4>開始</h4></v-card-title>
-          <v-card-text class="tc">
-            <v-date-picker
-              v-model="from"
-              locale="ja-jp"
-              :max="to"
-              :allowed-dates="allowDates"
-            />
-          </v-card-text>
+          <v-menu
+        ref="menu"
+        :close-on-content-click="false"
+        v-model="menu"
+        :nudge-right="40"
+        :return-value.sync="from"
+        lazy
+        transition="scale-transition"
+        offset-y
+        full-width
+        min-width="290px"
+      >
+        <v-text-field
+          slot="activator"
+          v-model="from"
+          label="Picker in menu"
+          prepend-icon="event"
+          readonly
+        ></v-text-field>
+        <v-date-picker v-model="from" no-title scrollable>
+          <v-spacer></v-spacer>
+          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+          <v-btn flat color="primary" @click="$refs.menu.save(from)">OK</v-btn>
+        </v-date-picker>
+      </v-menu>
         </v-card>
       </v-flex>
       <v-flex xs12 md4>
@@ -107,6 +123,7 @@ export default {
     keyword: '',
     from: moment().format('YYYY-MM-DD'),
     to: moment().add('week', 1).format('YYYY-MM-DD'),
+    menu: false,
     events: [],
     loading: false,
   }),
