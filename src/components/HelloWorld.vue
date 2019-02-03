@@ -110,9 +110,15 @@ export default {
     },
     search() {
       this.loading = true
+      const diff = moment(this.to).diff(this.from, 'days')
+      const from = moment(this.from).add(1, 'days')
       axios.get('https://connpass.com/api/v1/event/', {
         params: {
           keyword: this.keyword,
+          ymd: [...Array(diff)].map(() => {
+            from.add(1, 'days')
+            return from.format('YYYYMMDD')
+          }),
           order: 2,
         },
         adapter,
