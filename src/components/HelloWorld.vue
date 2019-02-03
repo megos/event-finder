@@ -69,12 +69,21 @@
                   :key="event.event_id"
                   @click="go(event.event_url)"
                 >
-                  <v-list-tile-avatar>
-                    {{ dateToString(event.started_at) }}
-                  </v-list-tile-avatar>
                   <v-list-tile-content>
                     <v-list-tile-title v-html="event.title"></v-list-tile-title>
+                    <v-list-tile-sub-title v-html="event.place"></v-list-tile-sub-title>
                   </v-list-tile-content>
+
+                  <v-list-tile-action>
+                    <v-list-tile-action-text>
+                      {{ dateToString(event.started_at) }}
+                      〜
+                      {{ dateToString(event.ended_at) }}
+                    </v-list-tile-action-text>
+                    <v-list-tile-action-text>
+                      {{ event.accepted + event.waiting }}/{{ event.limit }}
+                    </v-list-tile-action-text>
+                  </v-list-tile-action>
                 </v-list-tile>
                 <v-divider :key="`divider-${event.event_id}`"/>
               </template>
@@ -103,7 +112,7 @@ export default {
   }),
   methods: {
     dateToString(date) {
-      return moment(date).format('MM/DD(ddd)')
+      return moment(date).format('MM/DD(ddd) HH:mm')
     },
     allowDates(date) {
       return moment(date).date(1).diff(moment().date(1), 'months') === 0
