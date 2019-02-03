@@ -17,10 +17,37 @@
                   required
                 ></v-text-field>
 
+                      <v-flex xs12 md4 offset-md2>
+        <v-card>
+          <v-card-title><h4>開始</h4></v-card-title>
+          <v-card-text class="tc">
+            <v-date-picker
+              v-model="from"
+              locale="ja-jp"
+              :max="to"
+              :allowed-dates="allowDates"
+            />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 md4>
+        <v-card>
+          <v-card-title><h4>終了</h4></v-card-title>
+          <v-card-text class="tc">
+            <v-date-picker
+              v-model="to"
+              locale="ja-jp"
+              :min="from"
+              :allowed-dates="allowDates"
+            />
+          </v-card-text>
+        </v-card>
+</v-flex>
+
                 <v-btn
-                  :disabled="!keyword"
                   color="success"
-                  loading="loading"
+                  :loading="loading"
+                  :disabled="loading"
                   @click="search"
                 >
                   Search
@@ -69,12 +96,17 @@ moment.locale('ja')
 export default {
   data: () => ({
     keyword: '',
+    from: moment().format('YYYY-MM-DD'),
+    to: moment().add('week', 1).format('YYYY-MM-DD'),
     events: [],
     loading: false,
   }),
   methods: {
     dateToString(date) {
       return moment(date).format('MM/DD(ddd)')
+    },
+    allowDates(date) {
+      return moment(date).date(1).diff(moment().date(1), 'months') === 0
     },
     search() {
       this.loading = true
