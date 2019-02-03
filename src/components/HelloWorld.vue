@@ -78,6 +78,7 @@
         axios.get('https://connpass.com/api/v1/event/', {
           params: {
             keyword: this.keyword,
+            order: 2,
           },
           adapter,
         })
