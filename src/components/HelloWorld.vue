@@ -59,39 +59,39 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import adapter from 'axios-jsonp'
-  import moment from 'moment';
+import axios from 'axios'
+import adapter from 'axios-jsonp'
+import moment from 'moment'
 
-  moment.locale('ja')
+moment.locale('ja')
 
-  export default {
-    data: () => ({
-      keyword: '',
-      events: [],
-    }),
-    methods: {
-      dateToString(date) {
-        return moment(date).format('MM/DD(ddd)')
-      },
-      search() {
-        axios.get('https://connpass.com/api/v1/event/', {
-          params: {
-            keyword: this.keyword,
-            order: 2,
-          },
-          adapter,
-        })
-        .then(response => this.events = response.data.events)
-      },
-      reset() {
-        this.keyword = ''
-      },
-      go(url) {
-        window.open(url, '_blank')
-      },
-    }
-  }
+export default {
+  data: () => ({
+    keyword: '',
+    events: [],
+  }),
+  methods: {
+    dateToString(date) {
+      return moment(date).format('MM/DD(ddd)')
+    },
+    search() {
+      axios.get('https://connpass.com/api/v1/event/', {
+        params: {
+          keyword: this.keyword,
+          order: 2,
+        },
+        adapter,
+      })
+        .then((response) => { this.events = response.data.events })
+    },
+    reset() {
+      this.keyword = ''
+    },
+    go(url) {
+      window.open(url, '_blank')
+    },
+  },
+}
 </script>
 
 <style>
