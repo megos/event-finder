@@ -20,6 +20,7 @@
                 <v-btn
                   :disabled="!keyword"
                   color="success"
+                  loading="loading"
                   @click="search"
                 >
                   Search
@@ -69,12 +70,14 @@ export default {
   data: () => ({
     keyword: '',
     events: [],
+    loading: false,
   }),
   methods: {
     dateToString(date) {
       return moment(date).format('MM/DD(ddd)')
     },
     search() {
+      this.loading = true
       axios.get('https://connpass.com/api/v1/event/', {
         params: {
           keyword: this.keyword,
@@ -82,7 +85,11 @@ export default {
         },
         adapter,
       })
-        .then((response) => { this.events = response.data.events })
+        .then((response) => {
+          this.loading = false
+          this.events = response.data.events
+        })
+        .catch(() => { this.loading = false })
     },
     reset() {
       this.keyword = ''
