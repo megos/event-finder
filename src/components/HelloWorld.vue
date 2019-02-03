@@ -6,30 +6,52 @@
     >
       <v-flex>
         <v-card>
-          <v-toolbar color="cyan" dark>
-            <v-toolbar-side-icon></v-toolbar-side-icon>
-
-            <v-toolbar-title>Inbox</v-toolbar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon>search</v-icon>
-            </v-btn>
-          </v-toolbar>
-
-          <v-list two-line>
-            <template v-for="event in events">
-              <v-list-tile
-                :key="event.event_id"
+          <v-card>
+              <v-form
+                ref="form"
               >
-                <v-list-tile-content>
-                  <v-list-tile-title v-html="event.title"></v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-divider :key="`divider-${event.event_id}`"/>
-            </template>
-          </v-list>
+                <v-text-field
+                  v-model="keyword"
+                  :counter="10"
+                  label="keyword"
+                  required
+                ></v-text-field>
+
+                <v-btn
+                  :disabled="!keyword"
+                  color="success"
+                  @click="search"
+                >
+                  Search
+                </v-btn>
+
+                <v-btn
+                  color="error"
+                  @click="reset"
+                >
+                  Reset Form
+                </v-btn>
+              </v-form>
+          </v-card>
+
+          <v-card>
+            <v-list two-line>
+              <template v-for="event in events">
+                <v-list-tile
+                  :key="event.event_id"
+                  @click="go(event.event_url)"
+                >
+                  <v-list-tile-avatar>
+                    {{ dateToString(event.started_at) }}
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title v-html="event.title"></v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider :key="`divider-${event.event_id}`"/>
+              </template>
+            </v-list>
+          </v-card>
         </v-card>
       </v-flex>
     </v-layout>
@@ -39,21 +61,35 @@
 <script>
   import axios from 'axios'
   import adapter from 'axios-jsonp'
+  import moment from 'moment';
+
+  moment.locale('ja')
 
   export default {
     data: () => ({
+      keyword: '',
       events: [],
     }),
-    mounted () {
-      axios
-        .get('https://connpass.com/api/v1/event/', {
+    methods: {
+      dateToString(date) {
+        return moment(date).format('MM/DD(ddd)')
+      },
+      search() {
+        axios.get('https://connpass.com/api/v1/event/', {
           params: {
-            keyword: 'vue.js'
+            keyword: this.keyword,
           },
           adapter,
         })
         .then(response => this.events = response.data.events)
-    },
+      },
+      reset() {
+        this.keyword = ''
+      },
+      go(url) {
+        window.open(url, '_blank')
+      },
+    }
   }
 </script>
 
