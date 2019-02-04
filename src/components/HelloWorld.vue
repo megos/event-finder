@@ -17,42 +17,14 @@
                   required
                 ></v-text-field>
 
-                      <v-flex xs12 md4 offset-md2>
-        <v-card>
-          <v-menu
-        :close-on-content-click="false"
-        v-model="menu"
-        :nudge-right="40"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        min-width="290px"
-      >
-        <v-text-field
-          slot="activator"
-          v-model="from"
-          label="Picker without buttons"
-          prepend-icon="event"
-          readonly
-        ></v-text-field>
-        <v-date-picker v-model="from" @input="menu = false"></v-date-picker>
-      </v-menu>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 md4>
-        <v-card>
-          <v-card-title><h4>終了</h4></v-card-title>
-          <v-card-text class="tc">
-            <v-date-picker
-              v-model="to"
-              locale="ja-jp"
-              :min="from"
-              :allowed-dates="allowDates"
-            />
-          </v-card-text>
-        </v-card>
-</v-flex>
+                <v-flex xs12 md4 offset-md2>
+                  <v-card>
+                    <date-picker v-model="from" label="from" />
+                  </v-card>
+                  <v-card>
+                    <date-picker v-model="to" label="to" />
+                  </v-card>
+                </v-flex>
 
                 <v-btn
                   color="success"
@@ -109,15 +81,18 @@
 import axios from 'axios'
 import adapter from 'axios-jsonp'
 import moment from 'moment'
+import DatePicker from './DatePicker'
 
 moment.locale('ja')
 
 export default {
+  components: {
+    DatePicker,
+  },
   data: () => ({
     keyword: '',
     from: moment().format('YYYY-MM-DD'),
     to: moment().add('week', 1).format('YYYY-MM-DD'),
-    menu: false,
     events: [],
     loading: false,
   }),
