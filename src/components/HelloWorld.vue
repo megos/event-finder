@@ -20,11 +20,9 @@
                       <v-flex xs12 md4 offset-md2>
         <v-card>
           <v-menu
-        ref="menu"
         :close-on-content-click="false"
         v-model="menu"
         :nudge-right="40"
-        :return-value.sync="from"
         lazy
         transition="scale-transition"
         offset-y
@@ -34,15 +32,11 @@
         <v-text-field
           slot="activator"
           v-model="from"
-          label="Picker in menu"
+          label="Picker without buttons"
           prepend-icon="event"
           readonly
         ></v-text-field>
-        <v-date-picker v-model="from" no-title scrollable>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="$refs.menu.save(from)">OK</v-btn>
-        </v-date-picker>
+        <v-date-picker v-model="from" @input="menu = false"></v-date-picker>
       </v-menu>
         </v-card>
       </v-flex>
