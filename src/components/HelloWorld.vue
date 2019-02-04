@@ -34,13 +34,6 @@
                 >
                   Search
                 </v-btn>
-
-                <v-btn
-                  color="error"
-                  @click="reset"
-                >
-                  Reset Form
-                </v-btn>
               </v-form>
           </v-card>
 
@@ -123,9 +116,6 @@ export default {
           this.events = response.data.events
         })
         .catch(() => { this.loading = false })
-    },
-    reset() {
-      this.keyword = ''
     },
     go(url) {
       window.open(url, '_blank')
