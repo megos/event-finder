@@ -133,7 +133,7 @@ export default {
   data: () => ({
     keyword: '',
     from: moment().format('YYYY-MM-DD'),
-    to: moment().add('week', 1).format('YYYY-MM-DD'),
+    to: moment().add(1, 'week').format('YYYY-MM-DD'),
     events: [],
     loading: false,
   }),
