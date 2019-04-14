@@ -7,23 +7,17 @@
     </v-toolbar>
 
     <v-content>
-      <HelloWorld />
+      <Top />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld'
+import Top from '@/pages/Top'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld,
-  },
-  data() {
-    return {
-      //
-    }
+    Top,
   },
 }
 </script>
