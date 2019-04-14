@@ -15,6 +15,7 @@
     "vuetify": "1.5.11"
   },
   "devDependencies": {
+    "@megos/eslint-config-vue": "0.0.2",
     "@vue/cli-plugin-babel": "3.6.0",
     "@vue/cli-plugin-eslint": "3.6.0",
     "@vue/cli-service": "3.6.0",
@@ -35,14 +36,8 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended",
-      "@vue/airbnb"
+      "@megos/eslint-config-vue"
     ],
-    "rules": {
-      "semi": ["error", "never"],
-      "import/extensions": ["error", "never"]
-    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
