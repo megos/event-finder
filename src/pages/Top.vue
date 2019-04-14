@@ -1,82 +1,115 @@
 <template>
-  <v-container>
+  <v-container
+    fluid
+    grid-list-lg
+  >
     <v-layout
+      row
+      wrap
+    >
+      <v-flex
+        xs12
+        md4
+        offset-md4
+      >
+        キーワード
+        <v-card>
+          <v-card-text>
+            <v-text-field
+              v-model="keyword"
+              label="keyword"
+              required
+            />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex
+        xs12
+        offset-md4
+      >
+        期間
+      </v-flex>
+      <v-flex
+        xs12
+        md4
+        offset-md2
+      >
+        <v-card>
+          <v-card-text>
+            <date-picker
+              v-model="from"
+              label="from"
+            />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex
+        xs12
+        md4
+      >
+        <v-card>
+          <v-card-text>
+            <date-picker
+              v-model="to"
+              label="to"
+            />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex
+        xs12
+        md4
+        offset-md4
+
+        text-xs-center
+      >
+        <v-btn
+          color="success"
+          :loading="loading"
+          :disabled="loading"
+          @click="search"
+        >
+          Search
+        </v-btn>
+      </v-flex>
+    </v-layout>
+
+    <v-layout
+      v-show="events.length"
       text-xs-center
+      row
       wrap
     >
       <v-flex>
         <v-card>
-          <v-card>
-            <v-form
-              ref="form"
-            >
-              <v-text-field
-                v-model="keyword"
-                :counter="10"
-                label="keyword"
-                required
+          <v-list two-line>
+            <template v-for="(event, i) in events">
+              <v-list-tile
+                :key="event.event_id"
+                @click="go(event.event_url)"
+              >
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ event.title }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ event.place }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+
+                <v-list-tile-action>
+                  <v-list-tile-action-text>
+                    {{ dateToString(event.started_at) }}
+                    〜
+                    {{ dateToString(event.ended_at) }}
+                  </v-list-tile-action-text>
+                  <v-list-tile-action-text>
+                    {{ event.accepted + event.waiting }}/{{ event.limit }}
+                  </v-list-tile-action-text>
+                </v-list-tile-action>
+              </v-list-tile>
+              <v-divider
+                v-if="i !== events.length - 1"
+                :key="`divider-${event.event_id}`"
               />
-
-              <v-flex
-                xs12
-                md4
-                offset-md2
-              >
-                <v-card>
-                  <date-picker
-                    v-model="from"
-                    label="from"
-                  />
-                </v-card>
-                <v-card>
-                  <date-picker
-                    v-model="to"
-                    label="to"
-                  />
-                </v-card>
-              </v-flex>
-
-              <v-btn
-                color="success"
-                :loading="loading"
-                :disabled="loading"
-                @click="search"
-              >
-                Search
-              </v-btn>
-            </v-form>
-          </v-card>
-
-          <v-card>
-            <v-list two-line>
-              <template v-for="(event, i) in events">
-                <v-list-tile
-                  :key="event.event_id"
-                  @click="go(event.event_url)"
-                >
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ event.title }}</v-list-tile-title>
-                    <v-list-tile-sub-title>{{ event.place }}</v-list-tile-sub-title>
-                  </v-list-tile-content>
-
-                  <v-list-tile-action>
-                    <v-list-tile-action-text>
-                      {{ dateToString(event.started_at) }}
-                      〜
-                      {{ dateToString(event.ended_at) }}
-                    </v-list-tile-action-text>
-                    <v-list-tile-action-text>
-                      {{ event.accepted + event.waiting }}/{{ event.limit }}
-                    </v-list-tile-action-text>
-                  </v-list-tile-action>
-                </v-list-tile>
-                <v-divider
-                  v-if="i !== events.length - 1"
-                  :key="`divider-${event.event_id}`"
-                />
-              </template>
-            </v-list>
-          </v-card>
+            </template>
+          </v-list>
         </v-card>
       </v-flex>
     </v-layout>
@@ -136,7 +169,3 @@ export default {
   },
 }
 </script>
-
-<style>
-
-</style>
