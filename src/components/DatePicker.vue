@@ -21,6 +21,7 @@
       :value="value"
       :max="max"
       :min="min"
+      :allowed-dates="allowedDates"
       @input="onChange"
     />
   </v-menu>
@@ -45,6 +46,10 @@ export default {
     min: {
       type: String,
       default: undefined,
+    },
+    allowedDates: {
+      type: Function,
+      default: null,
     },
   },
   data() {

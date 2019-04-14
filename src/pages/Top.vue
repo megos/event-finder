@@ -54,6 +54,7 @@
               v-model="to"
               label="to"
               :min="from"
+              :allowed-dates="allowedDates"
             />
           </v-card-text>
         </v-card>
@@ -141,8 +142,8 @@ export default {
     dateToString(date) {
       return moment(date).format('MM/DD(ddd) HH:mm')
     },
-    allowDates(date) {
-      return moment(date).date(1).diff(moment().date(1), 'months') === 0
+    allowedDates(date) {
+      return moment(date).diff(this.from, 'days') <= 30
     },
     search() {
       this.loading = true
