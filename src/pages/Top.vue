@@ -39,7 +39,6 @@
             <date-picker
               v-model="from"
               label="from"
-              :max="to"
             />
           </v-card-text>
         </v-card>
@@ -138,6 +137,14 @@ export default {
     events: [],
     loading: false,
   }),
+
+  watch: {
+    from(newFrom) {
+      if (moment(newFrom).diff(this.to, 'days') > 0) {
+        this.to = moment(this.from).add(1, 'week').format('YYYY-MM-DD')
+      }
+    },
+  },
   methods: {
     dateToString(date) {
       return moment(date).format('MM/DD(ddd) HH:mm')
