@@ -19,6 +19,8 @@
     />
     <v-date-picker
       :value="value"
+      :max="max"
+      :min="min"
       @input="onChange"
     />
   </v-menu>
@@ -35,6 +37,14 @@ export default {
     label: {
       type: String,
       required: true,
+    },
+    max: {
+      type: String,
+      default: undefined,
+    },
+    min: {
+      type: String,
+      default: undefined,
     },
   },
   data() {

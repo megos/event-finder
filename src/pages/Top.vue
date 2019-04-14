@@ -39,6 +39,7 @@
             <date-picker
               v-model="from"
               label="from"
+              :max="to"
             />
           </v-card-text>
         </v-card>
@@ -52,6 +53,7 @@
             <date-picker
               v-model="to"
               label="to"
+              :min="from"
             />
           </v-card-text>
         </v-card>
