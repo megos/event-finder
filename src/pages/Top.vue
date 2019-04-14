@@ -49,7 +49,7 @@
 
           <v-card>
             <v-list two-line>
-              <template v-for="event in events">
+              <template v-for="(event, i) in events">
                 <v-list-tile
                   :key="event.event_id"
                   @click="go(event.event_url)"
@@ -70,7 +70,10 @@
                     </v-list-tile-action-text>
                   </v-list-tile-action>
                 </v-list-tile>
-                <v-divider :key="`divider-${event.event_id}`" />
+                <v-divider
+                  v-if="i !== events.length - 1"
+                  :key="`divider-${event.event_id}`"
+                />
               </template>
             </v-list>
           </v-card>
