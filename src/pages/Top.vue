@@ -17,7 +17,7 @@
           <v-card-text>
             <v-text-field
               v-model="keyword"
-              label="keyword"
+              placeholder="Python 東京"
               required
             />
           </v-card-text>
@@ -140,6 +140,7 @@ export default {
 
   watch: {
     from(newFrom) {
+      // Avoid from to reverse
       if (moment(newFrom).diff(this.to, 'days') > 0) {
         this.to = moment(this.from).add(1, 'week').format('YYYY-MM-DD')
       }
