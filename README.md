@@ -1,5 +1,15 @@
 # event-finder
 
+## Screenshot
+
+### PC
+
+<img src="https://cdn-ak.f.st-hatena.com/images/fotolife/t/tmegos/20190502/20190502101701.png" width="600">
+
+### Mobile
+
+<img src="https://cdn-ak.f.st-hatena.com/images/fotolife/t/tmegos/20190502/20190502110255.png" width="200">
+
 ## Project setup
 ```
 yarn install
