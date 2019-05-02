@@ -32,8 +32,9 @@
       </v-flex>
       <v-flex
         xs12
-        sm4
-        offset-sm2
+        sm6
+        md4
+        offset-md2
       >
         <v-card>
           <v-card-text>
@@ -46,7 +47,8 @@
       </v-flex>
       <v-flex
         xs12
-        sm4
+        sm6
+        md4
       >
         <v-card>
           <v-card-text>
