@@ -9,8 +9,8 @@
     >
       <v-flex
         xs12
-        md4
-        offset-md4
+        sm6
+        offset-sm3
       >
         キーワード
         <v-card>
@@ -25,14 +25,15 @@
       </v-flex>
       <v-flex
         xs12
-        offset-md4
+        sm6
+        offset-sm3
       >
         期間
       </v-flex>
       <v-flex
         xs12
-        md4
-        offset-md2
+        sm4
+        offset-sm2
       >
         <v-card>
           <v-card-text>
@@ -45,7 +46,7 @@
       </v-flex>
       <v-flex
         xs12
-        md4
+        sm4
       >
         <v-card>
           <v-card-text>
@@ -60,9 +61,8 @@
       </v-flex>
       <v-flex
         xs12
-        md4
-        offset-md4
-
+        sm4
+        offset-sm4
         text-xs-center
       >
         <v-btn
