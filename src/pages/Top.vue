@@ -9,8 +9,8 @@
     >
       <v-flex
         xs12
-        md4
-        offset-md4
+        sm6
+        offset-sm3
       >
         キーワード
         <v-card>
@@ -25,12 +25,14 @@
       </v-flex>
       <v-flex
         xs12
-        offset-md4
+        sm6
+        offset-sm3
       >
         期間
       </v-flex>
       <v-flex
         xs12
+        sm6
         md4
         offset-md2
       >
@@ -45,6 +47,7 @@
       </v-flex>
       <v-flex
         xs12
+        sm6
         md4
       >
         <v-card>
@@ -60,9 +63,8 @@
       </v-flex>
       <v-flex
         xs12
-        md4
-        offset-md4
-
+        sm4
+        offset-sm4
         text-xs-center
       >
         <v-btn
@@ -91,7 +93,7 @@
                 @click="go(event.event_url)"
               >
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ event.title }}</v-list-tile-title>
+                  <v-list-tile-title :class="titleClass">{{ event.title }}</v-list-tile-title>
                   <v-list-tile-sub-title>{{ event.place }}</v-list-tile-sub-title>
                 </v-list-tile-content>
 
@@ -101,7 +103,7 @@
                     〜
                     {{ dateToString(event.ended_at) }}
                   </v-list-tile-action-text>
-                  <v-list-tile-action-text>
+                  <v-list-tile-action-text :class="titleClass">
                     {{ event.accepted + event.waiting }}/{{ event.limit }}
                   </v-list-tile-action-text>
                 </v-list-tile-action>
@@ -137,7 +139,11 @@ export default {
     events: [],
     loading: false,
   }),
-
+  computed: {
+    titleClass() {
+      return this.$vuetify.breakpoint.xs ? 'mt-4' : ''
+    },
+  },
   watch: {
     from(newFrom) {
       // Avoid from to reverse
