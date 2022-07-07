@@ -10,7 +10,7 @@
   "dependencies": {
     "axios": "0.21.1",
     "axios-jsonp": "1.0.2",
-    "moment": "2.24.0",
+    "moment": "2.29.4",
     "vue": "2.6.10",
     "vuetify": "1.5.11"
   },
